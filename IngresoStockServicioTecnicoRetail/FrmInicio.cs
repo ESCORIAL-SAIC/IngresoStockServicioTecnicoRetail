@@ -66,15 +66,14 @@ public partial class FrmInicio : Form
             LimpiarCampos();
             return;
         }
-        var nuevoIngreso = Fun.GenerarIngresoNuevo(cabecera, item, ud);
+        DgvItemsIngresados.Rows.Add(cabecera.Numerodocumento, item.Nombrereferencia, ud.Serieproducto);
+
+        //mover esto a bucle que lea el datagridview de items ingresados
         try
         {
-            var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(nuevoIngreso);
+            var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
             if (insertadoCorrectamente)
-            {
-                DgvItemsIngresados.Rows.Add(cabecera.Numerodocumento, item.Nombrereferencia, ud.Serieproducto);
                 MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
             else
                 MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

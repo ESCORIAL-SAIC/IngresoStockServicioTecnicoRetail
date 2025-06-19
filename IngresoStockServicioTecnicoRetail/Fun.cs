@@ -44,7 +44,8 @@ public class Fun
         return etiquetaIngresada;
     }
 
-    public static Solitudcambioretailpicking GenerarIngresoNuevo(VTrsolicitud cabecera, VItemsolicitud item, VUdItemsolreparacionretail ud)
+
+    public static async Task<bool> InsertarNuevoIngreso(VTrsolicitud cabecera, VItemsolicitud item, VUdItemsolreparacionretail ud)
     {
         var nuevoIngreso = new Solitudcambioretailpicking
         {
@@ -57,11 +58,6 @@ public class Fun
             FechaProcesadoCalipso = null,
             Id = Guid.NewGuid()
         };
-        return nuevoIngreso;
-    }
-
-    public static async Task<bool> InsertarNuevoIngreso(Solitudcambioretailpicking nuevoIngreso)
-    {
         using var context = new ESCORIALContext();
         using var transaction = context.Database.BeginTransaction();
         try
