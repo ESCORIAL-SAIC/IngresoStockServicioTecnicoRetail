@@ -10,6 +10,45 @@ public partial class FrmInicio : Form
 
     private async void BtnAceptar_Click(object sender, EventArgs e)
     {
+        
+
+        //mover esto a bucle que lea el datagridview de items ingresados
+        //try
+        //{
+        //    var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
+        //    if (insertadoCorrectamente)
+        //        MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    else
+        //        MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
+        //catch (Exception ex)
+        //{
+        //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
+        //finally
+        //{
+        //    LimpiarCampos();
+        //}
+    }
+
+    private void LimpiarCampos()
+    {
+        TxtNumeroSerie.Text = string.Empty;
+        TxtPlacaMarcado.Text = string.Empty;
+        TxtNumeroSerie.Focus();
+    }
+
+    private void TxtNumeroSerie_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+            TxtPlacaMarcado.Focus();
+    }
+
+    private async void TxtPlacaMarcado_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode != Keys.Enter)
+            return;
+
         var codBarras = TxtNumeroSerie.Text;
         if (string.IsNullOrEmpty(codBarras))
         {
@@ -38,7 +77,7 @@ public partial class FrmInicio : Form
         }
         VUdItemsolreparacionretail? ud = null;
         VItemsolicitud? item = null;
-        foreach (var itemFor in listItem) 
+        foreach (var itemFor in listItem)
         {
             ud = await Fun.BuscarUdItemSolicitud(itemFor, nroSerie);
             if (ud is not null)
@@ -68,41 +107,6 @@ public partial class FrmInicio : Form
         }
         DgvItemsIngresados.Rows.Add(cabecera.Numerodocumento, item.Nombrereferencia, ud.Serieproducto);
 
-        //mover esto a bucle que lea el datagridview de items ingresados
-        try
-        {
-            var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
-            if (insertadoCorrectamente)
-                MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-        finally
-        {
-            LimpiarCampos();
-        }
-    }
-
-    private void LimpiarCampos()
-    {
-        TxtNumeroSerie.Text = string.Empty;
-        TxtPlacaMarcado.Text = string.Empty;
-        TxtNumeroSerie.Focus();
-    }
-
-    private void TxtNumeroSerie_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-            TxtPlacaMarcado.Focus();
-    }
-
-    private void TxtPlacaMarcado_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-            BtnAceptar.PerformClick();
+        LimpiarCampos();
     }
 }
