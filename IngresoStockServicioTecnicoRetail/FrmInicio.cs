@@ -10,9 +10,17 @@ public partial class FrmInicio : Form
 
     private async void BtnAceptar_Click(object sender, EventArgs e)
     {
-        
 
         //mover esto a bucle que lea el datagridview de items ingresados
+
+        var itemsList = DgvItemsIngresados.Rows;
+        ;
+
+        foreach (DataGridViewRow row in itemsList)
+        {
+            MessageBox.Show(row.Cells[0].Value.ToString());
+        }
+
         //try
         //{
         //    var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
