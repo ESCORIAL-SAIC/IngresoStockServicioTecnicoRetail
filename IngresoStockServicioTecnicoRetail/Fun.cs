@@ -63,17 +63,17 @@ public class Fun
     public static async Task<bool> InsertarNuevoIngreso(Solitudcambioretailpicking nuevoIngreso)
     {
         using var context = new ESCORIALContext();
-        using var transaction = context.Database.BeginTransaction();
+        //using var transaction = context.Database.BeginTransaction();
         try
         {
-            context.Solitudcambioretailpickings.Add(nuevoIngreso);
-            await context.SaveChangesAsync();
-            await transaction.CommitAsync();
+            //context.Solitudcambioretailpickings.Add(nuevoIngreso);
+            //await context.SaveChangesAsync();
+            //await transaction.CommitAsync();
             return true;
         }
         catch (Exception)
         {
-            await transaction.RollbackAsync();
+            //await transaction.RollbackAsync();
             throw;
         }
     }
