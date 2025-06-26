@@ -3,6 +3,8 @@ using IngresoStockServicioTecnicoRetail.Models;
 namespace IngresoStockServicioTecnicoRetail;
 public partial class FrmInicio : Form
 {
+    public List<(VTrsolicitud, VItemsolicitud, VUdItemsolreparacionretail)> pickedList = [];
+
     public FrmInicio()
     {
         InitializeComponent();
@@ -10,33 +12,30 @@ public partial class FrmInicio : Form
 
     private async void BtnAceptar_Click(object sender, EventArgs e)
     {
-
-        //mover esto a bucle que lea el datagridview de items ingresados
-
-        var itemsList = DgvItemsIngresados.Rows;
-        ;
-
-        foreach (DataGridViewRow row in itemsList)
+        try
         {
-            MessageBox.Show(row.Cells[0].Value.ToString());
+            foreach (var row in pickedList)
+            {
+                var cabecera = row.Item1;
+                var item = row.Item2;
+                var ud = row.Item3;
+                var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
+                if (insertadoCorrectamente)
+                    MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
-        //try
-        //{
-        //    var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
-        //    if (insertadoCorrectamente)
-        //        MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    else
-        //        MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
-        //catch (Exception ex)
-        //{
-        //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
-        //finally
-        //{
-        //    LimpiarCampos();
-        //}
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            pickedList.Clear();
+            DgvItemsIngresados.Rows.Clear();
+            LimpiarCampos();
+        }
     }
 
     private void LimpiarCampos()
@@ -113,8 +112,8 @@ public partial class FrmInicio : Form
             LimpiarCampos();
             return;
         }
+        pickedList.Add((cabecera, item, ud));
         DgvItemsIngresados.Rows.Add(cabecera.Numerodocumento, item.Nombrereferencia, ud.Serieproducto);
-
         LimpiarCampos();
     }
 }
