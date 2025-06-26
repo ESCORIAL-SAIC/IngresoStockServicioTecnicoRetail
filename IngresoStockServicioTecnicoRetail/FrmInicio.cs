@@ -3,6 +3,8 @@ using IngresoStockServicioTecnicoRetail.Models;
 namespace IngresoStockServicioTecnicoRetail;
 public partial class FrmInicio : Form
 {
+    public List<(VTrsolicitud, VItemsolicitud, VUdItemsolreparacionretail)> pickedList = [];
+
     public FrmInicio()
     {
         InitializeComponent();
@@ -10,6 +12,50 @@ public partial class FrmInicio : Form
 
     private async void BtnAceptar_Click(object sender, EventArgs e)
     {
+        try
+        {
+            foreach (var row in pickedList)
+            {
+                var cabecera = row.Item1;
+                var item = row.Item2;
+                var ud = row.Item3;
+                var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(cabecera, item, ud);
+                if (insertadoCorrectamente)
+                    MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            pickedList.Clear();
+            DgvItemsIngresados.Rows.Clear();
+            LimpiarCampos();
+        }
+    }
+
+    private void LimpiarCampos()
+    {
+        TxtNumeroSerie.Text = string.Empty;
+        TxtPlacaMarcado.Text = string.Empty;
+        TxtNumeroSerie.Focus();
+    }
+
+    private void TxtNumeroSerie_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+            TxtPlacaMarcado.Focus();
+    }
+
+    private async void TxtPlacaMarcado_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode != Keys.Enter)
+            return;
+
         var codBarras = TxtNumeroSerie.Text;
         if (string.IsNullOrEmpty(codBarras))
         {
@@ -38,7 +84,7 @@ public partial class FrmInicio : Form
         }
         VUdItemsolreparacionretail? ud = null;
         VItemsolicitud? item = null;
-        foreach (var itemFor in listItem) 
+        foreach (var itemFor in listItem)
         {
             ud = await Fun.BuscarUdItemSolicitud(itemFor, nroSerie);
             if (ud is not null)
@@ -66,44 +112,8 @@ public partial class FrmInicio : Form
             LimpiarCampos();
             return;
         }
-        var nuevoIngreso = Fun.GenerarIngresoNuevo(cabecera, item, ud);
-        try
-        {
-            var insertadoCorrectamente = await Fun.InsertarNuevoIngreso(nuevoIngreso);
-            if (insertadoCorrectamente)
-            {
-                DgvItemsIngresados.Rows.Add(cabecera.Numerodocumento, item.Nombrereferencia, ud.Serieproducto);
-                MessageBox.Show("El registro se insertó correctamente.", "Insert correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-                MessageBox.Show("Hubo un error insertando", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-        finally
-        {
-            LimpiarCampos();
-        }
-    }
-
-    private void LimpiarCampos()
-    {
-        TxtNumeroSerie.Text = string.Empty;
-        TxtPlacaMarcado.Text = string.Empty;
-        TxtNumeroSerie.Focus();
-    }
-
-    private void TxtNumeroSerie_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-            TxtPlacaMarcado.Focus();
-    }
-
-    private void TxtPlacaMarcado_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-            BtnAceptar.PerformClick();
+        pickedList.Add((cabecera, item, ud));
+        DgvItemsIngresados.Rows.Add(cabecera.Numerodocumento, item.Nombrereferencia, ud.Serieproducto);
+        LimpiarCampos();
     }
 }

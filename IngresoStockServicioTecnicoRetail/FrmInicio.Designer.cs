@@ -46,7 +46,7 @@
             // 
             TxtNumeroSerie.Location = new Point(6, 44);
             TxtNumeroSerie.Name = "TxtNumeroSerie";
-            TxtNumeroSerie.Size = new Size(341, 23);
+            TxtNumeroSerie.Size = new Size(312, 23);
             TxtNumeroSerie.TabIndex = 0;
             TxtNumeroSerie.KeyDown += TxtNumeroSerie_KeyDown;
             // 
@@ -61,7 +61,7 @@
             // 
             // BtnAceptar
             // 
-            BtnAceptar.Location = new Point(272, 139);
+            BtnAceptar.Location = new Point(391, 479);
             BtnAceptar.Name = "BtnAceptar";
             BtnAceptar.Size = new Size(75, 23);
             BtnAceptar.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             TxtPlacaMarcado.Location = new Point(6, 97);
             TxtPlacaMarcado.Name = "TxtPlacaMarcado";
-            TxtPlacaMarcado.Size = new Size(341, 23);
+            TxtPlacaMarcado.Size = new Size(312, 23);
             TxtPlacaMarcado.TabIndex = 3;
             TxtPlacaMarcado.KeyDown += TxtPlacaMarcado_KeyDown;
             // 
@@ -88,14 +88,14 @@
             // 
             // GpbIngreso
             // 
+            GpbIngreso.Controls.Add(DgvItemsIngresados);
             GpbIngreso.Controls.Add(TxtPlacaMarcado);
             GpbIngreso.Controls.Add(LblPlacaMarcado);
             GpbIngreso.Controls.Add(TxtNumeroSerie);
             GpbIngreso.Controls.Add(LblTitulo);
-            GpbIngreso.Controls.Add(BtnAceptar);
             GpbIngreso.Location = new Point(12, 12);
             GpbIngreso.Name = "GpbIngreso";
-            GpbIngreso.Size = new Size(353, 168);
+            GpbIngreso.Size = new Size(454, 461);
             GpbIngreso.TabIndex = 5;
             GpbIngreso.TabStop = false;
             GpbIngreso.Text = "Ingreso";
@@ -109,10 +109,10 @@
             DgvItemsIngresados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             DgvItemsIngresados.Columns.AddRange(new DataGridViewColumn[] { NumeroDocumento, CodigoProducto, Serie });
             DgvItemsIngresados.EditMode = DataGridViewEditMode.EditProgrammatically;
-            DgvItemsIngresados.Location = new Point(371, 12);
+            DgvItemsIngresados.Location = new Point(6, 127);
             DgvItemsIngresados.MultiSelect = false;
             DgvItemsIngresados.Name = "DgvItemsIngresados";
-            DgvItemsIngresados.Size = new Size(348, 168);
+            DgvItemsIngresados.Size = new Size(442, 328);
             DgvItemsIngresados.TabIndex = 6;
             // 
             // NumeroDocumento
@@ -134,9 +134,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(731, 193);
-            Controls.Add(DgvItemsIngresados);
+            ClientSize = new Size(478, 514);
             Controls.Add(GpbIngreso);
+            Controls.Add(BtnAceptar);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FrmInicio";
             Text = "Ingreso Retail";
