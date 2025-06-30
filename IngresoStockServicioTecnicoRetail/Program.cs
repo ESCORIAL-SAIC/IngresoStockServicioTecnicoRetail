@@ -14,7 +14,6 @@ namespace IngresoStockServicioTecnicoRetail
         [STAThread]
         static void Main()
         {
-            // Cargar configuración desde appsettings.json y appsettings.{ENV}.json
             var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
 
             Configuration = new ConfigurationBuilder()
@@ -23,7 +22,6 @@ namespace IngresoStockServicioTecnicoRetail
                 .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
                 .Build();
 
-            // Inicializar la app
             ApplicationConfiguration.Initialize();
             Application.Run(new FrmInicio());
         }
