@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageIcon>escorial_icon.ico</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,8 +22,7 @@
 
   <ItemGroup>
     <Reference Include="EncriptaDesencriptaCadena">
-      <HintPath>..\..\EncriptaDesencriptaCadena\EncriptaDesencriptaCadena\bin\Release\EncriptaDesencriptaCadena.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>lib\EncriptaDesencriptaCadena.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -33,6 +33,14 @@
 		<None Update="appsettings.Development.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<DependentUpon>appsettings.json</DependentUpon>
+		</None>
+		<None Update="assets\escorial_icon.ico">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="lib\EncriptaDesencriptaCadena.dll">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

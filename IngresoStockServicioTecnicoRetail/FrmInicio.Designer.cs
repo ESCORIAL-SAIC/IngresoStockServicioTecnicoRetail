@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInicio));
             TxtNumeroSerie = new TextBox();
             LblTitulo = new Label();
             BtnAceptar = new Button();
@@ -138,6 +139,7 @@
             Controls.Add(GpbIngreso);
             Controls.Add(BtnAceptar);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmInicio";
             Text = "Ingreso Retail";
             GpbIngreso.ResumeLayout(false);
