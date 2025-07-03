@@ -6,8 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageIcon>escorial_icon.ico</PackageIcon>
+    <PackageIcon>assets\escorial_icon.ico</PackageIcon>
+    <ApplicationIcon>assets\escorial_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="assets\escorial_icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
