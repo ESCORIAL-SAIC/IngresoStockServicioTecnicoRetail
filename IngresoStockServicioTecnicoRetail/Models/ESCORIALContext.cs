@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using EncriptaDesencriptaCadena;
 
 namespace IngresoStockServicioTecnicoRetail.Models;
 
@@ -32,7 +33,8 @@ public partial class ESCORIALContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            var connectionString = Program.Configuration.GetConnectionString("DefaultConnection");
+            var encriptedConnectionString = Program.Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Crypto.Decrypt(encriptedConnectionString);
             optionsBuilder.UseNpgsql(connectionString);
         }
     }
