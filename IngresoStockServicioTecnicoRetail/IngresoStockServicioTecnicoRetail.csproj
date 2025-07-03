@@ -19,6 +19,13 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="EncriptaDesencriptaCadena">
+      <HintPath>..\..\EncriptaDesencriptaCadena\EncriptaDesencriptaCadena\bin\Release\EncriptaDesencriptaCadena.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
