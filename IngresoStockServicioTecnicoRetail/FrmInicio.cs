@@ -68,6 +68,14 @@ public partial class FrmInicio : Form
         var nroSerie = codBarras.Substring(17, 15);
         nroSerie = nroSerie.TrimStart('0');
         var serieMarcado = TxtPlacaMarcado.Text.TrimStart('0');
+
+        if(pickedList.Any(item => item.Item3.Serieproducto == nroSerie))
+        {
+            MessageBox.Show("El número de serie ya fue ingresado anteriormente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            LimpiarCampos();
+            return;
+        }
+
         var cabecera = await Fun.BuscarSolicitud(nroDocumento);
         if (cabecera is null)
         {
